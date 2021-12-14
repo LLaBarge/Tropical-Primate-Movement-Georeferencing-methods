@@ -1,0 +1,18 @@
+Georeferencing Project Methodology
+Obtaining spatial data from drawn maps requires points to be manually georeferenced. To do this, we will use the program QuantumGIS (QGIS) because it is freely available and user-friendly.
+Best Practice Guidelines: https://docs.gbif.org/georeferencing-best-practices/1.0/en/ 
+To begin georeferencing a scanned .TIFF document:
+1.	Go to the Project tab at the top of your QGIS window (Windows) or top of your screen (MacOS) and select Properties from the menu that appears. 
+2.	 Click on CRS (which stands for coordinate reference system) in the left-hand column and then select WGS 84. This CRS may be located under “predefined coordinate systems” or you can simply search for “wgs 84” if you do not see it right away.
+3.	Next go to the Raster tab at the top of the screen and click on the Georeferencer tab*
+*If you can’t find it that means you do not currently have the necessary plugin – if this is the case, then click on Plugins at the top of the home screen/window and then select Manage and Install Plugins. Then scroll down and check the box next to Georeferencer GDAL.
+4.	Once inside the Georeferencer winder, go to File and Select Open Raster and browse to the location of the image you want to georeference
+5.	Unlike professional maps, most hand-drawn maps do not have Ground Control Points (GCPs) of coordinates around the corners. This means that trails or landmarks (rivers, camps etc) need to be georeferenced to a basemap. The minimum number of points needed for running the georeferencer on QGIS is four; ideally, we would georeference more points – concentrating on the external borders of the map. Number of points needed will depend on the reference map.
+6.	On the top of the georeferencer window go to Edit > add point. Click on a recognizable point where you know the coordinates from a landmark or basemap and manually enter them. Alternatively, if the basemap is loaded in QGIS (as with ketambe macaque data) – then select “map canvas” and click the corresponding location on the main QGIS screen. 
+7.	Continue until 6-8 GCPs are attached to the map that needs georeferencing.
+8.	Go to Settings > Transformation Settings and save the new raster to a file. Use a linear transformation. Select “load raster into QGIS” Do not compress the image
+9.	Go to File > start georeferencing. This may take a little while. 
+10.	The image should appear within the main QGIS screen (~5-10 sec)
+11.	If the raster image is saved then QGIS can be closed and loaded again in another session. From the beginning go to Layer > raster then load the georeferenced TIFF image. 
+12.	To add vector points (where an animal was during an observation) go to Layer > create layer > shapefile. When prompted, give a name for the new shapefile that contains the location, species, date of data collection, and observer (e.g. “Ketambe_Macaque_03.03.81ES”)
+13.	Under “geometry” select “points”
