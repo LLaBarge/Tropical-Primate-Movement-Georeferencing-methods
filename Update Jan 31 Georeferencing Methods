@@ -1,0 +1,27 @@
+Georeferencing Project Methodology
+Obtaining spatial data from drawn maps requires points to be manually georeferenced. To do this, we will use the program QuantumGIS (QGIS) because it is freely available and user-friendly.
+Best Practice Guidelines: https://docs.gbif.org/georeferencing-best-practices/1.0/en/ 
+To begin georeferencing
+1.	Scan each page and save as a .TIFF file with the format “Site_Species_date_observer initials_study group” Example: Ketambe_LongTailedMacaque_030381_ES_KetambeGroup.TIFF
+2.	Open QGIS and start by going to Layer and choosing “Add Layer” and then “Add Vector Layer” to load images of the Ketambe basemap into QGIS. 
+3.	Next go to the Raster tab at the top of the screen and click on the Georeferencer tab*
+*If you can’t find it that means you do not currently have the necessary plugin – if this is the case, then click on Plugins at the top of the home screen/window and then select Manage and Install Plugins. Then scroll down and check the box next to Georeferencer GDAL.
+4.	Once inside the Georeferencer winder, go to File and Select Open Raster and browse to the location of the image you want to georeference
+5.	Unlike professional maps, most hand-drawn maps do not have Ground Control Points (GCPs) of coordinates around the corners. This means that trails or landmarks (rivers, camps etc) need to be georeferenced to a basemap. The minimum number of points needed for running the georeferencer on QGIS is four; ideally, we would georeferenced a few more points – concentrating on the external borders of the map. Number of points needed will depend on the reference map
+6.	When the basemap is the same for many observations (e.g. separate days on the same group of monkeys) we will want GCPs to be taken on the same places on the map
+7.	Go to Settings > Transformation Settings and save the new raster to a file. Use a helmert transformation. Select “load raster into QGIS” Do not compress the image. SRS should be the same as the basemap CRS (e.g. the CRS for the Ketambe basemap is EPSG4326 WGS84)
+8.	On the top of the georeferencer window go to Edit > add point. Click on a recognizable point where you know the coordinates from a landmark or basemap and manually enter them. Alternatively, if the basemap is loaded in QGIS (as with ketambe macaque data) – then select “map canvas” and click the corresponding location on the main QGIS screen. Zoom into each map when clicking on points to be as accurate as possible.
+9.	Continue until 4-8 GCPs are attached to the map that needs georeferencing.
+10.	Go to File > start georeferencing.  
+11.	The image should appear within the main QGIS screen (~5-10 sec) and should overlay the basemap. If points do not line up well then something went wrong…..(slight variation is expected, but not too much)
+a.	To check this click on the layer at the bottom left of the screen and go to ‘properties’ – there you can change the transparency to see if the points match
+12.	Before closing the georeferencing window, save the GCPs with the name of the map (e.g. GCP_KetambeWest)
+13.	Next time the same image is to be georeferenced to add primate movement points the same GCP points can be loaded
+If the raster image is saved, then QGIS can safely be closed and loaded again in another session. 
+14.	To add vector points (where an animal was during an observation) go to Layer > create layer > new shapefile layer. When prompted, give a name for the new shapefile that contains the location, species, date of data collection, and observer (e.g. “KetambeWest_LongTailedMacaque_030381ES”) Under “geometry” select “points” and make sure the CRS matches the basemap and georeferenced map. Hit “OK”
+
+15.	Once the point layer is created click on the pencil icon that says “toggle editor” and then the add point feature button  
+
+16.	Click on each 30 minute point sequentially starting with the earliest point of the day and when prompted to give an attribute ID give the time only (e.g. 1430)
+
+17.	After each of these marks has been given an ID go to the point layer properties > Export > Save Features as. Then choose “Comma Separated Value (CSV) as the format. Under Geometry type select ‘point.’ Click on extent. Then Under ‘Layer Options’ find the word Geometry and next to it select “AS_XY” (be sure not to choose “YX”) and then hit OK. This will be a CSV containing the points from each day. Be sure that this file is saved and backed up on the server.
