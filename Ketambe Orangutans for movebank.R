@@ -1,4 +1,6 @@
 
+
+setwd("~/")
 # convert dbf files of orangutan movement to csvs
 #install.packages("foreign")
 #library(foreign)
@@ -18,8 +20,18 @@ write.csv(Ket.orang_selected, "Ket.orang_selected")
 # date is isnt in a useful format so change this
 Ket.orang_selected$Timestamp<-as.POSIXct(Ket.orang_selected$DAT_TIM_1)
 
-# check the data again
+# check the data for NAs
 str(Ket.orang_selected)
+table(is.na(Ket.orang_selected$Timestamp))
+
+Ket.orang<-na.omit(Ket.orang_selected)
+str(Ket.orang)
+
+
+write.csv(Ket.orang, file="Ket.orang.csv")
+
+# manually upload these data to movebank
+
 
 # then we can create tracks
 library(amt)
@@ -45,7 +57,7 @@ extent(Ketambe_rast)<-extent(330000, 355000, 400000, 410000)
 res(Ketambe_rast)<-25
 projection(Ketambe_rast) <- "+init=epsg:32750 +proj=utm +zone=47 +units=m +north"
 
-# create movebank format
+
 
 
 
@@ -61,5 +73,5 @@ orangs_OD_ket <- od(orangs_track, model=fit_ctmm(orangs_track,"bm"), n.points=30
 # primate sleep active periods nest to nest
 
 
-
+ctmmweb::app()
 
